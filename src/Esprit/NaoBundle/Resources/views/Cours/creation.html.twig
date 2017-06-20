@@ -1,0 +1,271 @@
+{# empty Twig template #}
+{# empty Twig template #}
+<!DOCTYPE html><html lang="en">
+      
+        
+        
+        
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
+    <title>B</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link   href={{asset('css/bootstrap.min.css')}} rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href={{asset('css/business-casual.css')}} rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+ <script  src={{asset('js/jquery.js')}}></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+            .buttonspeed
+            {
+           width: 200px;
+    height: 200px;
+    background-image: url({{ asset('img/speed.png') }});
+    background-repeat: no-repeat;
+    cursor:pointer;
+                        border: none;
+            }
+                 .buttonpause
+            {
+           width: 200px;
+    height: 200px;
+    background-image: url({{ asset('img/pause.png') }});
+    background-repeat: no-repeat;
+    cursor:pointer;
+                        border: none;
+            }
+             .buttonstart
+            {
+           width: 200px;
+    height: 200px;
+    background-image: url({{ asset('img/start.png') }});
+    background-repeat: no-repeat;
+    cursor:pointer;
+                        border: none;
+            }
+        
+             .buttonexplain
+            {
+           width: 200px;
+    height: 200px;
+    background-image: url({{ asset('img/speak.png') }});
+    background-repeat: no-repeat;
+    cursor:pointer;
+                        border: none;
+            }
+             .buttonhello
+            {
+           width: 200px;
+    height: 200px;
+    background-image: url({{ asset('img/hello.png') }});
+    background-repeat: no-repeat;
+    cursor:pointer;
+                        border: none;
+            }
+        </style>
+      
+</head>
+
+<body>
+
+    <div class="brand">Nao Robot</div>
+  
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand" href="index.html">Business Casual</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{path('esprit_nao_AddCours')}}" >Add Lesson</a>
+                    </li>
+                    <li>
+                        <a href="{{path('esprit_nao_ListCours')}}">show Lessons</a>
+                    </li>
+                     <li>
+                        <a href="{{path('esprit_nao_CreerCours')}}">create Lesson</a>
+                    </li>
+                    <li>
+                        <a href="{{path('esprit_nao_enseignant')}}" >check presence  </a>
+                    </li>
+                    <li>
+                        <a href="{{path('esprit_nao_ip')}}" >Controle Nao</a>
+                    </li>
+                   
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+   <center> 
+
+<h2>
+ <script type="text/javascript">
+   		function insertText ()
+   		{
+		 document.getElementById("text").value = document.getElementById("text").value+"\\rspd=80\\";
+   		}
+   		function insertText1 ()
+   		{
+		 document.getElementById("text").value = document.getElementById("text").value+"\\pau=120\\";
+   		}
+   		function insertText2 ()
+   		{
+		 document.getElementById("text").value = document.getElementById("text").value+"^start(Yes_1)";
+   		}
+      function insertText3 ()
+      {
+     document.getElementById("text").value = document.getElementById("text").value+"^start(Explain_1)";
+      }
+      function insertText4 ()
+      {
+     document.getElementById("text").value = document.getElementById("text").value+"^start(Hey_1)";
+      }
+  		</script>
+</head>
+
+<center>
+    <button type="image" class="buttonspeed" onclick="insertText ()">speed</button>
+	<button  type="image" class="buttonpause" onclick="insertText1 ()">pause</button>
+    <button  type="image" class="buttonstart"  onclick="insertText2 ()">Start Animation</button>
+    <button  type="image" class="buttonexplain"  onclick="insertText3 ()">Explain</button>
+    <button type="image" class="buttonhello"  onclick="insertText4()">Hello</button>
+       
+    
+        
+    </center>
+	<br>
+	<br>
+	<center>
+            <script>
+                var ss= document.getElementById("text").value;
+              function save(){
+                  
+                  
+                  
+                  
+                  
+              }   
+                
+                
+            </script>
+<textarea name="textfield" id="text"  rows="10" cols="100"></textarea>
+<a id=dl onclick="convert()" class="button" download="file.txt">Download</a>
+
+
+
+</center>
+
+</h2>   
+    
+
+
+    
+                    
+
+    <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12 text-center">
+                    <div id="carousel-example-generic" class="carousel slide">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators hidden-xs">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                      
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="icon-prev"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="icon-next"></span>
+                        </a>
+                    </div>
+                    <h2 class="brand-before">
+                        <small>Welcome to </small>
+                    </h2>
+                    <h1 class="brand-name">Nao Assistant</h1>
+                    <hr class="tagline-divider">
+                    <h2>
+                        <small>By
+                            <strong>Special One</strong>
+                        </small>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+           
+        </div>
+
+        
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+   
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src={{asset('js/bootstrap.min.js')}}></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+    <script>
+            function convert() {
+                content=document.getElementById("text");
+  dl.href="data:text/plain,"+encodeURIComponent(content.value);
+dl.click();
+}
+
+
+</script>
+   
+    
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,336 @@
+{# empty Twig template #}
+<html lang="en">
+      
+        
+        
+        
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
+    <title>B</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link   href={{asset('css/bootstrap.min.css')}} rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href={{asset('css/business-casual.css')}} rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+ <script  src={{asset('js/jquery.js')}}></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+ <script type="text/javascript">
+ var session;
+ var etudiant=[];
+ 
+    function hideipbutton(){
+    document.getElementById("buttonconnect").style.visibility = "hidden"; 
+	  document.getElementById("ip").style.visibility = "hidden";    
+	   document.getElementById("presence").style.visibility = "hidden";   
+   }
+function find (){
+Parse.initialize("VroiSgb3IRJO9nJbRH1MC9m3uocER6yeNhEkIGJo","g93TXzYLB26ViJN8wMner3gmx8w86UkZI6YTXGjM");
+var  rs= Parse.Object.extend("classe");
+var query = new Parse.Query(rs);
+query.equalTo("idenseignant",document.getElementById("identifiant").value);
+query.find({
+  success: function(results) {
+      document.getElementById("identifiant").style.visibility = "hidden"; 
+      document.getElementById("buttonidentifiant").style.visibility = "hidden"; 
+    
+	for (var i = 0; i < results.length; i++) { 
+      var texteLien = "Voir";      
+      var object = results[i];
+      classe =object.get('nom');
+      document.getElementById("1234").innerHTML=(document.getElementById("1234").innerHTML+'<button id="btncheck" onclick="etudiants(\''+classe+'\')">check </button>'+'    '+ object.get('nom')+'<br><br><br>');
+    }
+  },
+
+  error: function(error) {
+    // error is an instance of Parse.Error.
+  }
+});
+	}
+        function etudiants (classe){
+
+		
+Parse.initialize("VroiSgb3IRJO9nJbRH1MC9m3uocER6yeNhEkIGJo","g93TXzYLB26ViJN8wMner3gmx8w86UkZI6YTXGjM");
+var  r= Parse.Object.extend("etudiant");
+
+
+var query1 = new Parse.Query(r);
+query1.equalTo("idclasse",classe);
+query1.find({
+  success: function(results) {
+       
+      document.getElementById("1234").style.display = "none"; 
+     
+   						
+	
+	document.getElementById("table").innerHTML=(document.getElementById("table").innerHTML+'<tr><td>nom</td><td>prenom</td><td>presence</td><td>absence</td></tr>');
+	for (var i = 0; i < results.length; i++) { 
+	var object = results[i];
+	etudiant[i]=new Array(5);
+       etudiant[i][0]= object.get('nom');    
+       etudiant[i][1]=object.get('prenom');
+       etudiant[i][2]=object.get('presence');
+       etudiant[i][3]=object.get('absence');
+	    etudiant[i][4]=object.id;
+	   
+      var texteLien = "Voir";      
+      var object = results[i];
+	  document.getElementById("table").innerHTML=(document.getElementById("table").innerHTML+'<tr>'+'<td>'+object.get('nom')+'</td>'+'<td>'+object.get('prenom')+'</td>'+'<td>'+object.get('presence')+'</td>'+'<td>'+object.get('absence')+'</td>'+'</tr>');
+      //document.getElementById("12345").innerHTML=(document.getElementById("12345").innerHTML+'<li>'+'nom:  '+object.get('nom')+'</li>'+'<li>'+'prenom:  '+object.get('prenom')+'</li>'+'<li>'+'presence:  '+object.get('presence')+'</li>'+'<li>'+'absence:  '+object.get('absence')+'</li>'+'<br>'+'<input type="radio" value="1" > Present</input>'+'<input type="radio" value="-1" >Absent</input>'+'<br><br>');
+    }
+		    document.getElementById("buttonconnect").style.visibility = "visible"; 
+	  document.getElementById("ip").style.visibility = "visible";    
+	  document.getElementById("presence").style.visibility = "visible";    
+  },
+
+  error: function(error) {
+    // error is an instance of Parse.Error.
+  }
+});
+        }
+		
+function connect()
+    {
+var str1 = "http://nao:nao@";
+var str2 = document.getElementById("ip").value;
+var str3 = "/libs/qimessaging/1.0/qimessaging.js";
+var res = str1.concat(str2,str3);
+var my_awesome_script = document.createElement('script');
+my_awesome_script.setAttribute('src',res);
+
+document.head.appendChild(my_awesome_script);
+
+     
+      ipadresse = document.getElementById("ip").value;   
+      session = new QiSession(ipadresse);
+      session.socket().on('connect', function()
+      {
+        console.log("QiSession connected!");
+      }).on('disconnect', function(){
+        console.log("QiSession disconnect");
+      });
+    }
+	
+	
+	
+	function SpeechRecognition(){
+console.log("hello :p "+ new Date());
+        session.service("ALTextToSpeech").done(function(tts)
+      {
+        tts.say(etudiant[i][0]+etudiant[i][1]);
+      });
+
+	  	session.service("ALSpeechRecognition").done(function (asr) {
+		vocabulary = ["present","absent"];
+		asr.setVocabulary(vocabulary, false);
+		asr.pause(false);
+		asr.subscribe("Test_ASR");
+
+		session.service("ALMemory").done(function (ALMemory) {
+		ALMemory.subscriber("WordRecognized").done(function (subscriber){
+		subscriber.signal.connect(function (words) {
+
+		session.service("ALMemory").done(function(subscriber)
+		  {
+		session.service("ALTextToSpeech").done(function(tts)
+		 {
+		if(words[0]=="present"){
+
+		   // Create the object.
+var student = Parse.Object.extend("etudiant");
+var student = new student();
+
+student.set("objectId", etudiant[i][4]);
+console.log(etudiant[i][4]);
+student.save(null, {
+  success: function(student) {
+    // Now let's update it with some new data. In this case, only cheatMode and score
+    // will get sent to the cloud. playerName hasn't changed.
+    student.set("presence", etudiant[i][2]+1);
+    student.save();
+  }
+});
+   
+				
+		asr.pause(true);	
+		}
+		else
+		if(words[0]=="absent")
+		{
+		
+   // Create the object.
+var student = Parse.Object.extend("etudiant");
+var student = new student();
+
+student.set("objectId", etudiant[i][4]);
+console.log(etudiant[i][4]);
+student.save(null, {
+  success: function(student) {
+    // Now let's update it with some new data. In this case, only cheatMode and score
+    // will get sent to the cloud. playerName hasn't changed.
+    student.set("absence", etudiant[i][3]+1);
+    student.save();
+  }
+});
+   
+		asr.pause(true);
+		}
+		//cas illi masama3 7atta kelma ya3refha
+		//asr.pause(true);
+		
+		  });
+	
+
+
+		  });
+
+		});
+	  });
+	});
+	});	
+	
+	   if( i<etudiant.length-1){
+i=i+1;
+window.setTimeout(SpeechRecognition, 3000);
+}
+
+    }
+	
+	
+	
+	  var i=0;
+	  function presence()
+    {
+	
+	
+console.log(etudiant);
+SpeechRecognition();
+	   }
+	   
+
+
+
+	   
+
+   
+
+	
+	
+	
+	
+	
+	
+
+	</script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+  .buttonstart
+            {
+    width: 700px;
+    height: 700px;
+    background-image: url({{ asset('img/start.png') }});
+    background-repeat: no-repeat;
+    cursor:pointer;
+                        border: none;
+            }
+            .buttonpause
+            {
+           width: 300px;
+    height: 300px;
+    background-image: url({{ asset('img/loading.gif') }});
+    background-repeat: no-repeat;
+    cursor:pointer;
+    animation-duration: 2s;
+animation-direction: alternate;
+                        border: none;
+            }
+        </style>
+      
+</head>
+
+<body onload = "hideipbutton()">
+
+    <div class="brand">Nao Robot</div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{path('esprit_nao_AddCours')}}" >Add Lesson</a>
+                    </li>
+                    <li>
+                        <a href="{{path('esprit_nao_ListCours')}}">show Lessons</a>
+                    </li>
+                     <li>
+                        <a href="{{path('esprit_nao_CreerCours')}}">create Lesson</a>
+                    </li>
+                    <li>
+                        <a href="{{path('esprit_nao_enseignant')}}" >check presence  </a>
+                    </li>
+                    <li>
+                        <a href="{{path('esprit_nao_ip')}}" >Controle Nao</a>
+                    </li>
+                   
+                </ul>
+            </div>
+
+
+<h2>
+<center>
+    
+     <h2 class="brand-before">
+	 <table>
+	 <tr>
+	 <td><button   class="button" id="buttonconnect" onclick="connect()">Connect</button></td>
+	 <td><input  name="2" type="text" id="ip" placeholder='enter nao IP'/></td>
+	 </tr>
+	 <tr>
+	 <br>
+	 <td></td><td><button  class="button" id="presence" onclick="presence()">Ask for presence</button></td>
+
+	 </tr>
+	 </table>
+      
+                        <br>
+                        <input name="1" type="text" id="identifiant" placeholder='enter your identifiant'/>
+                        <button class="button" id="buttonidentifiant" onclick="find()">Afficher</button>
+						
+                        <br>
+                        
+						<table  border="4"    style="background-color:blue" id="table" >
+	</table>
+                        <p id="1234"></p>
+                        <p id="12345"></p>
+
+     </h2>
+    </center>
+</h2>
+    <script src={{asset('js/bootstrap.min.js')}}></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+    
+
+</body>
+
+</html>

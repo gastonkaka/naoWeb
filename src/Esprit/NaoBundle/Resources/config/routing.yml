@@ -1,0 +1,39 @@
+esprit_nao_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EspritNaoBundle:Default:index }
+esprit_nao_AddCours:
+    path:     /Add
+    defaults: { _controller: EspritNaoBundle:Cours:Add }
+esprit_nao_QcmCours:
+    path:     /Qcm
+    defaults: { _controller: EspritNaoBundle:Cours:Qcm }
+esprit_nao_ListCours:
+    path:     /List
+    defaults: { _controller: EspritNaoBundle:Cours:List}
+esprit_nao_CreerCours:
+    path:     /creer
+    defaults: { _controller: EspritNaoBundle:Cours:Creation}
+esprit_nao_home:
+    path:     /home
+    defaults: { _controller: EspritNaoBundle:Cours:Home}
+esprit_nao_signup:
+    path:     /signup
+    defaults: { _controller: EspritNaoBundle:Cours:Signup}
+esprit_nao_enseignant:
+    path:     /enseignant
+    defaults: { _controller: EspritNaoBundle:Cours:Enseignant}
+esprit_nao_control:
+    path:     /control
+    defaults: { _controller: EspritNaoBundle:Cours:Control}
+esprit_nao_ip:
+    path:     /naoip
+    defaults: { _controller: EspritNaoBundle:Cours:Ip}
+esprit_nao_absence:
+    path:     /absence
+    defaults: { _controller: EspritNaoBundle:Cours:Absence}    
+    
+    
+    
+    
+    
+    

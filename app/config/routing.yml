@@ -1,0 +1,7 @@
+esprit_nao:
+    resource: "@EspritNaoBundle/Resources/config/routing.yml"
+    prefix:   /nao
+
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation

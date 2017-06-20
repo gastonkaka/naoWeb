@@ -1,0 +1,131 @@
+{# empty Twig template #}    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <script type = "text/javascript" src = "http://nao:nao@192.168.3.88/libs/qimessaging/1.0/qimessaging.js"></script>
+     <!--   <script type = "text/javascript" src= "script/websocket.js"> -->
+    </head>
+    <body onload = "connect()">
+    <input type="button" onclick= "speak()" value = "speak"></button>
+        <input type = "button" onclick = "interraction()" value = "interraction"></button>
+    <input type="button" onclick= "touch()" value = "handtouch"></button>
+<input type="button" onclick= "unbscribe()" value = "unsbscribe"></button>
+    <script>
+    var textToSpeech;
+    var session;
+var asr; 
+
+ 
+    function connect()
+    {
+      session = new QiSession('192.168.3.88');
+      session.socket().on('connect', function()
+      {
+        console.log("QiSession connected!");
+      }).on('disconnect', function(){
+        console.log("QiSession disconnect");
+      });
+    }
+
+    function speak()
+    {
+      session.service("ALAnimatedSpeech").done(function(tts)
+      {
+        tts.say("^startTag(hello) Hi");
+      });
+    }
+
+    function interraction()
+    {
+
+	session.service("ALSpeechRecognition").done(function (asr) {
+
+	vocabulary = ["yes", "no", "please"];
+	asr.setVocabulary(vocabulary, false);
+	asr.subscribe("Test_ASR");
+
+  session.service("ALMemory").done(function (ALMemory) {
+ALMemory.subscriber("WordRecognized").done(function (subscriber){
+    subscriber.signal.connect(function (words) {
+
+
+session.service("ALMemory").done(function(subscriber)
+      {
+
+ session.service("ALTextToSpeech").done(function(tts)
+      {
+tts.say(words[0]);
+
+      });
+asr.unsubscribe("Test_ASR");
+
+
+      });
+
+
+
+    });
+  });
+});
+});	
+    }
+
+
+
+
+function unsbscribe()
+{
+session.service("ALSpeechRecognition").done(function (asr) {
+
+
+asr.unsubscribe("Test_ASR");
+
+});	
+}
+
+
+
+function touch()
+{
+
+
+ session.service("ALMemory").done(function(ALMemory)
+      {
+//right hand
+ ALMemory.subscriber("HandRightBackTouched").done(function (subscriber) {
+    subscriber.signal.connect(function (state) {
+
+
+session.service("ALTextToSpeech").done(function(tts)
+      {
+        tts.say("Right");
+      });
+   
+
+    });
+  });
+//left hand
+ ALMemory.subscriber("HandLeftBackTouched").done(function (left) {
+    left.signal.connect(function (state) {
+
+
+session.service("ALTextToSpeech").done(function(say)
+      {
+        say.say("Left");
+      });
+   
+
+    });
+  });
+
+
+});	
+    }
+
+    </script>
+    </body>
+    </html>
+
+
+
+

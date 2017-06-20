@@ -1,0 +1,64 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dark Sign In Form a Flat Responsive Widget Template :: w3layouts</title>
+	<link   href={{asset('css/style.css')}} rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+	<!-- For-Mobile-Apps-and-Meta-Tags -->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Dark Sign In Form Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+                 <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
+	<!-- //For-Mobile-Apps-and-Meta-Tags -->
+        
+</head>
+
+<body>
+    
+    
+   
+    <h1>NAO ASSISTANT</h1>
+    <div class="container">
+        <h2>Sign In</h2>
+		<form>
+			<input type="text" class="name" placeholder="Username" id="usernametext" required="">
+			<input type="password" class="password" placeholder="Password" id="passwordtext" required="">
+			<ul>
+				<li>
+					<input type="checkbox" id="brand1" value="">
+					<label for="brand1"><span></span>Remember me</label>
+				</li>
+			</ul>
+            <a href="#">Forgot Password?</a><br>
+			<div class="clear"></div>
+                        <a><input type="button" onclick="signin()" value="SIGN IN"></a>
+                           <a href="{{path('esprit_nao_signup')}}"><input type="button"  value="SIGN UP"></a>
+		</form>
+               
+	</div>
+	<div class="footer">
+		
+	</div>
+               
+    <script type="text/javascript">
+   function signin(){
+            Parse.initialize("VroiSgb3IRJO9nJbRH1MC9m3uocER6yeNhEkIGJo","g93TXzYLB26ViJN8wMner3gmx8w86UkZI6YTXGjM");
+          Parse.User.logIn(document.getElementById("usernametext").value,document.getElementById("passwordtext").value, {
+  success: function(user) {
+   window.location="{{path('esprit_nao_AddCours')}}";
+  
+  },
+  error: function(user, error) {
+  window.location="{{path('esprit_nao_AddCours')}}";
+  }
+});
+        }
+        
+        
+    </script>
+</body>
+</html>
